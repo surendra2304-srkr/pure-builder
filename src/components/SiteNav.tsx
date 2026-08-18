@@ -137,13 +137,13 @@ export function SiteNav() {
                   <div className="rounded-2xl bg-muted/60 p-5">
                     <div className="flex items-center gap-2 text-xs text-muted-foreground">
                       {(() => {
-                        const Icon = products[hover].icon;
+                        const Icon = active.icon;
                         return <Icon className="size-3.5" />;
                       })()}
-                      {products[hover].label}
+                      {active.label}
                     </div>
                     <div className="mt-4 space-y-2.5">
-                      {products[hover].preview.map((line, i) => (
+                      {active.preview.map((line, i) => (
                         <div
                           key={line}
                           className={cn(
