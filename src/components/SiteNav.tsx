@@ -41,6 +41,9 @@ const links = [
 export function SiteNav() {
   const [open, setOpen] = useState(false);
   const [menu, setMenu] = useState(false);
+  const [hover, setHover] = useState(0);
+  const active = products[hover] ?? products[0];
+
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
