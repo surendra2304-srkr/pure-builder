@@ -1,5 +1,16 @@
 import { useState } from "react";
 
+type Row = {
+  label: string;
+  hint: string;
+  value: number;
+  min: number;
+  max: number;
+  step: number;
+  set: (v: number) => void;
+  prefix?: string;
+};
+
 export function RoiCalculator() {
   const [visitors, setVisitors] = useState(4000);
   const [calls, setCalls] = useState(120);
@@ -9,6 +20,8 @@ export function RoiCalculator() {
   const missedCalls = Math.round(calls * 0.28);
   const extraLeads = chatLeads + missedCalls;
   const pipeline = extraLeads * value;
+  const planCost = 149;
+  const roi = Math.round(((pipeline - planCost) / planCost) * 100);
 
   const money = (n: number) =>
     n.toLocaleString("en-US", {
@@ -17,61 +30,142 @@ export function RoiCalculator() {
       maximumFractionDigits: 0,
     });
 
-  const rows: [string, number, number, number, (v: number) => void, string][] = [
-    ["Monthly website visitors", visitors, 500, 50000, setVisitors, ""],
-    ["Inbound calls / month", calls, 10, 2000, setCalls, ""],
-    ["Average value of a lead", value, 50, 5000, setValue, "$"],
+  const rows: Row[] = [
+    {
+      label: "Monthly website visitors",
+      hint: "Unique sessions across your site",
+      value: visitors,
+      min: 500,
+      max: 50000,
+      step: 500,
+      set: setVisitors,
+    },
+    {
+      label: "Inbound calls / month",
+      hint: "Everything that rings your team",
+      value: calls,
+      min: 10,
+      max: 2000,
+      step: 10,
+      set: setCalls,
+    },
+    {
+      label: "Average value of a lead",
+      hint: "What one qualified lead is worth",
+      value: value,
+      min: 50,
+      max: 5000,
+      step: 50,
+      set: setValue,
+      prefix: "$",
+    },
+  ];
+
+  const breakdown = [
+    { label: "Chat leads captured", meta: "3.2% of visitors", value: chatLeads },
+    { label: "Missed calls recovered", meta: "28% of inbound", value: missedCalls },
+    { label: "Additional qualified leads", meta: "per month", value: extraLeads },
   ];
 
   return (
-    <div className="card-tile grid gap-8 md:grid-cols-2">
-      <div className="space-y-6">
-        {rows.map(([label, v, min, max, set, prefix]) => (
-          <label key={label} className="block">
-            <div className="flex items-baseline justify-between">
-              <span className="text-sm text-muted-foreground">{label}</span>
-              <span className="font-display text-lg font-semibold">
-                {prefix}
-                {v.toLocaleString()}
-              </span>
-            </div>
-            <input
-              type="range"
-              min={min}
-              max={max}
-              step={min}
-              value={v}
-              onChange={(e) => set(Number(e.target.value))}
-              className="range-line mt-3 w-full"
-            />
-          </label>
-        ))}
-      </div>
+    <div className="overflow-hidden rounded-[1.75rem] border border-border bg-card">
+      <div className="grid lg:grid-cols-[1.05fr_0.95fr]">
+        {/* Inputs */}
+        <div className="p-6 sm:p-9">
+          <div className="text-xs tracking-[0.16em] text-muted-foreground">
+            YOUR NUMBERS
+          </div>
 
-      <div className="rounded-2xl bg-foreground p-6 text-background">
-        <div className="text-xs tracking-[0.14em] opacity-60">
-          ESTIMATED MONTHLY LIFT
-        </div>
-        <div className="font-display mt-3 text-5xl font-semibold tracking-tight tabular-nums">
-          {money(pipeline)}
-        </div>
-        <div className="mt-2 text-sm opacity-70">
-          from {extraLeads} additional qualified leads
-        </div>
-        <dl className="mt-6 space-y-2 border-t border-background/20 pt-5 text-sm">
-          <div className="flex justify-between">
-            <dt className="opacity-70">Chat leads captured (3.2%)</dt>
-            <dd className="tabular-nums">{chatLeads}</dd>
+          <div className="mt-7 divide-y divide-border">
+            {rows.map((row) => (
+              <label key={row.label} className="block py-6 first:pt-0 last:pb-0">
+                <div className="flex items-start justify-between gap-6">
+                  <div>
+                    <div className="text-sm font-medium text-foreground">
+                      {row.label}
+                    </div>
+                    <div className="mt-1 text-xs text-muted-foreground">
+                      {row.hint}
+                    </div>
+                  </div>
+                  <div className="rounded-full bg-secondary px-3 py-1">
+                    <span className="font-display text-base font-semibold tabular-nums text-secondary-foreground">
+                      {row.prefix}
+                      {row.value.toLocaleString()}
+                    </span>
+                  </div>
+                </div>
+                <input
+                  type="range"
+                  min={row.min}
+                  max={row.max}
+                  step={row.step}
+                  value={row.value}
+                  onChange={(e) => row.set(Number(e.target.value))}
+                  className="range-line mt-5 w-full"
+                />
+                <div className="mt-2 flex justify-between text-[0.7rem] tabular-nums text-muted-foreground">
+                  <span>
+                    {row.prefix}
+                    {row.min.toLocaleString()}
+                  </span>
+                  <span>
+                    {row.prefix}
+                    {row.max.toLocaleString()}
+                  </span>
+                </div>
+              </label>
+            ))}
           </div>
-          <div className="flex justify-between">
-            <dt className="opacity-70">Missed calls recovered (28%)</dt>
-            <dd className="tabular-nums">{missedCalls}</dd>
+        </div>
+
+        {/* Result */}
+        <div className="border-t border-border bg-muted/50 p-6 sm:p-9 lg:border-t-0 lg:border-l">
+          <div className="text-xs tracking-[0.16em] text-muted-foreground">
+            ESTIMATED MONTHLY LIFT
           </div>
-          <div className="flex justify-between">
-            <dt className="opacity-70">Cost of Growth plan</dt>
-            <dd className="tabular-nums">$149</dd>
+          <div className="font-display mt-4 text-[clamp(2.5rem,6vw,3.75rem)] leading-none font-semibold tracking-[-0.04em] tabular-nums text-foreground">
+            {money(pipeline)}
           </div>
-        </dl>
+          <div className="mt-3 flex flex-wrap items-center gap-2">
+            <span className="rounded-full border border-border bg-card px-3 py-1 text-xs text-muted-foreground">
+              {extraLeads.toLocaleString()} extra leads / month
+            </span>
+            <span className="rounded-full border border-border bg-card px-3 py-1 text-xs text-muted-foreground">
+              {roi.toLocaleString()}% return
+            </span>
+          </div>
+
+          <dl className="mt-8 space-y-3">
+            {breakdown.map((item) => (
+              <div
+                key={item.label}
+                className="flex items-center justify-between rounded-xl border border-border bg-card px-4 py-3"
+              >
+                <dt className="text-sm text-foreground">
+                  {item.label}
+                  <span className="ml-2 text-xs text-muted-foreground">
+                    {item.meta}
+                  </span>
+                </dt>
+                <dd className="font-display text-base font-semibold tabular-nums text-foreground">
+                  {item.value.toLocaleString()}
+                </dd>
+              </div>
+            ))}
+          </dl>
+
+          <div className="mt-6 flex items-center justify-between border-t border-border pt-5">
+            <span className="text-sm text-muted-foreground">Cost of Growth plan</span>
+            <span className="font-display text-base font-semibold tabular-nums text-foreground">
+              {money(planCost)}/mo
+            </span>
+          </div>
+          <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
+            Estimates based on typical capture rates. Your numbers stay in your
+            browser.
+          </p>
+        </div>
       </div>
     </div>
   );
