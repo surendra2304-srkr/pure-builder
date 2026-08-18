@@ -68,28 +68,28 @@ export function RoiCalculator() {
   ];
 
   return (
-    <div className="overflow-hidden rounded-[1.75rem] border border-border bg-card">
-      <div className="grid lg:grid-cols-[1.05fr_0.95fr]">
+    <div className="overflow-hidden rounded-2xl border border-border bg-card">
+      <div className="grid md:grid-cols-[1.05fr_0.95fr]">
         {/* Inputs */}
-        <div className="p-6 sm:p-9">
-          <div className="text-xs tracking-[0.16em] text-muted-foreground">
+        <div className="p-5 sm:p-7">
+          <div className="text-[0.7rem] tracking-[0.16em] text-muted-foreground">
             YOUR NUMBERS
           </div>
 
-          <div className="mt-7 divide-y divide-border">
+          <div className="mt-5 divide-y divide-border">
             {rows.map((row) => (
-              <label key={row.label} className="block py-6 first:pt-0 last:pb-0">
-                <div className="flex items-start justify-between gap-6">
+              <label key={row.label} className="block py-4 first:pt-0 last:pb-0">
+                <div className="flex items-start justify-between gap-4">
                   <div>
                     <div className="text-sm font-medium text-foreground">
                       {row.label}
                     </div>
-                    <div className="mt-1 text-xs text-muted-foreground">
+                    <div className="mt-0.5 text-xs text-muted-foreground">
                       {row.hint}
                     </div>
                   </div>
-                  <div className="rounded-full bg-secondary px-3 py-1">
-                    <span className="font-display text-base font-semibold tabular-nums text-secondary-foreground">
+                  <div className="rounded-full bg-secondary px-2.5 py-0.5">
+                    <span className="font-display text-sm font-semibold tabular-nums text-secondary-foreground">
                       {row.prefix}
                       {row.value.toLocaleString()}
                     </span>
@@ -102,9 +102,9 @@ export function RoiCalculator() {
                   step={row.step}
                   value={row.value}
                   onChange={(e) => row.set(Number(e.target.value))}
-                  className="range-line mt-5 w-full"
+                  className="range-line mt-4 w-full"
                 />
-                <div className="mt-2 flex justify-between text-[0.7rem] tabular-nums text-muted-foreground">
+                <div className="mt-1.5 flex justify-between text-[0.65rem] tabular-nums text-muted-foreground">
                   <span>
                     {row.prefix}
                     {row.min.toLocaleString()}
@@ -120,27 +120,27 @@ export function RoiCalculator() {
         </div>
 
         {/* Result */}
-        <div className="border-t border-border bg-muted/50 p-6 sm:p-9 lg:border-t-0 lg:border-l">
-          <div className="text-xs tracking-[0.16em] text-muted-foreground">
+        <div className="border-t border-border bg-muted/50 p-5 sm:p-7 md:border-t-0 md:border-l">
+          <div className="text-[0.7rem] tracking-[0.16em] text-muted-foreground">
             ESTIMATED MONTHLY LIFT
           </div>
-          <div className="font-display mt-4 text-[clamp(2.5rem,6vw,3.75rem)] leading-none font-semibold tracking-[-0.04em] tabular-nums text-foreground">
+          <div className="font-display mt-3 text-[clamp(2rem,4.5vw,2.75rem)] leading-none font-semibold tracking-[-0.04em] tabular-nums text-foreground">
             {money(pipeline)}
           </div>
-          <div className="mt-3 flex flex-wrap items-center gap-2">
-            <span className="rounded-full border border-border bg-card px-3 py-1 text-xs text-muted-foreground">
+          <div className="mt-2 flex flex-wrap items-center gap-2">
+            <span className="rounded-full border border-border bg-card px-2.5 py-0.5 text-xs text-muted-foreground">
               {extraLeads.toLocaleString()} extra leads / month
             </span>
-            <span className="rounded-full border border-border bg-card px-3 py-1 text-xs text-muted-foreground">
+            <span className="rounded-full border border-border bg-card px-2.5 py-0.5 text-xs text-muted-foreground">
               {roi.toLocaleString()}% return
             </span>
           </div>
 
-          <dl className="mt-8 space-y-3">
+          <dl className="mt-6 space-y-2">
             {breakdown.map((item) => (
               <div
                 key={item.label}
-                className="flex items-center justify-between rounded-xl border border-border bg-card px-4 py-3"
+                className="flex items-center justify-between rounded-xl border border-border bg-card px-3 py-2"
               >
                 <dt className="text-sm text-foreground">
                   {item.label}
@@ -148,20 +148,20 @@ export function RoiCalculator() {
                     {item.meta}
                   </span>
                 </dt>
-                <dd className="font-display text-base font-semibold tabular-nums text-foreground">
+                <dd className="font-display text-sm font-semibold tabular-nums text-foreground">
                   {item.value.toLocaleString()}
                 </dd>
               </div>
             ))}
           </dl>
 
-          <div className="mt-6 flex items-center justify-between border-t border-border pt-5">
+          <div className="mt-5 flex items-center justify-between border-t border-border pt-4">
             <span className="text-sm text-muted-foreground">Cost of Growth plan</span>
-            <span className="font-display text-base font-semibold tabular-nums text-foreground">
+            <span className="font-display text-sm font-semibold tabular-nums text-foreground">
               {money(planCost)}/mo
             </span>
           </div>
-          <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
+          <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
             Estimates based on typical capture rates. Your numbers stay in your
             browser.
           </p>
