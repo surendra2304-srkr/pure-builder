@@ -120,7 +120,7 @@ export function RoiCalculator() {
         </div>
 
         {/* Result */}
-        <div className="border-t border-border bg-muted/50 p-5 sm:p-7 md:border-t-0 md:border-l">
+        <div className="border-t border-border bg-card p-5 sm:p-7 md:border-t-0 md:border-l">
           <div className="text-[0.7rem] tracking-[0.16em] text-muted-foreground">
             ESTIMATED MONTHLY LIFT
           </div>

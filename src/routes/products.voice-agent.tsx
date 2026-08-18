@@ -8,13 +8,13 @@ import { BotOrb } from "@/components/BotOrb";
 export const Route = createFileRoute("/products/voice-agent")({
   head: () => ({
     meta: [
-      { title: "Voice Agent — KaliGan AI" },
+      { title: "Voice Employee — KaliGan AI" },
       {
         name: "description",
         content:
-          "Forward the number you already advertise. The KaliGan Voice Agent answers on the first ring, transcribes, scores and routes every call.",
+          "Forward the number you already advertise. The KaliGan Voice Employee answers on the first ring, transcribes, scores and routes every call.",
       },
-      { property: "og:title", content: "Voice Agent — KaliGan AI" },
+      { property: "og:title", content: "Voice Employee — KaliGan AI" },
       {
         property: "og:description",
         content:
@@ -61,7 +61,7 @@ function VoiceAgentPage() {
               <BotOrb size={92} reach={10} />
             </div>
             <div className="mt-8 text-xs tracking-[0.16em] text-muted-foreground">
-              VOICE AGENT
+              VOICE EMPLOYEE
             </div>
             <h1 className="font-display mt-4 text-[clamp(2.4rem,6.5vw,4.25rem)] leading-[0.98] font-semibold tracking-[-0.045em]">
               Never miss another call.
