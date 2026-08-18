@@ -407,8 +407,8 @@ function Home() {
 
         {/* ROI */}
         <section className="px-5 pb-24">
-          <div className="mx-auto max-w-6xl">
-            <Reveal className="mb-10 max-w-2xl">
+          <div className="mx-auto max-w-4xl">
+            <Reveal className="mb-8 max-w-2xl">
               <div className="text-xs tracking-[0.16em] text-muted-foreground">
                 WHAT IT'S WORTH
               </div>
