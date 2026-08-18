@@ -264,6 +264,7 @@ function Home() {
                   <button
                     key={p.name}
                     onClick={() => setPillar(i)}
+                    onMouseEnter={() => setPillar(i)}
                     className={cn(
                       "rounded-3xl border p-5 text-left transition-colors",
                       i === pillar
