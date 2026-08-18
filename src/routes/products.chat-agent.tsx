@@ -9,13 +9,13 @@ import { BotOrb } from "@/components/BotOrb";
 export const Route = createFileRoute("/products/chat-agent")({
   head: () => ({
     meta: [
-      { title: "Chat Agent — KaliGan AI" },
+      { title: "Chat Employee — KaliGan AI" },
       {
         name: "description",
         content:
-          "The KaliGan Chat Agent answers every website visitor, asks the questions your best salesperson would ask, and hands over a scored lead.",
+          "The KaliGan Chat Employee answers every website visitor, asks the questions your best salesperson would ask, and hands over a scored lead.",
       },
-      { property: "og:title", content: "Chat Agent — KaliGan AI" },
+      { property: "og:title", content: "Chat Employee — KaliGan AI" },
       {
         property: "og:description",
         content:
@@ -62,7 +62,7 @@ function ChatAgentPage() {
               <BotOrb size={92} reach={10} />
             </div>
             <div className="mt-8 text-xs tracking-[0.16em] text-muted-foreground">
-              CHAT AGENT
+              CHAT EMPLOYEE
             </div>
             <h1 className="font-display mt-4 text-[clamp(2.4rem,6.5vw,4.25rem)] leading-[0.98] font-semibold tracking-[-0.045em]">
               Answer every visitor instantly.

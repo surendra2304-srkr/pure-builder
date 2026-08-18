@@ -8,13 +8,13 @@ import { cn } from "@/lib/utils";
 const products = [
   {
     to: "/products/chat-agent",
-    label: "Chat Agent",
+    label: "Chat Employees",
     icon: MessageSquare,
     body: "An employee that answers every visitor and qualifies them live.",
   },
   {
     to: "/products/voice-agent",
-    label: "Voice Agent",
+    label: "Voice Employees",
     icon: Mic,
     body: "Picks up your phone number on the first ring, day or night.",
   },
