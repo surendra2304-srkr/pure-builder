@@ -11,14 +11,25 @@ const products = [
     label: "Chat Employees",
     icon: MessageSquare,
     body: "An employee that answers every visitor and qualifies them live.",
+    preview: [
+      "Hi! Are you looking for a quote today?",
+      "Yes — for a 3-bed rewire.",
+      "Got it. What postcode are you in?",
+    ],
   },
   {
     to: "/products/voice-agent",
     label: "Voice Employees",
     icon: Mic,
     body: "Picks up your phone number on the first ring, day or night.",
+    preview: [
+      "Thanks for calling — how can I help?",
+      "Do you handle emergency leaks tonight?",
+      "Yes, a crew is on call until 11pm.",
+    ],
   },
 ] as const;
+
 
 
 const links = [
